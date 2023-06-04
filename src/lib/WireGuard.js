@@ -112,6 +112,11 @@ PostDown = ${WG_POST_DOWN}
 PublicKey = ${client.publicKey}
 PresharedKey = ${client.preSharedKey}
 AllowedIPs = ${client.address}/32`;
+      if (client.hasOwnProperty('addresses')) {
+        for (const [key, address] of Object.entries(client.addresses)) {
+          result += `, ${address}`;
+        }
+      }
     }
 
     debug('Config saving...');
