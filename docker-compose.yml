@@ -6,6 +6,7 @@ services:
       # Change this to your host's public address
       - WG_HOST=${WG_HOST}
       - PASSWORD=${PASSWORD}
+      - WG_DEFAULT_ADDRESS=10.8.1.x
 
       # Optional:
       # - PASSWORD=foobar123
@@ -19,10 +20,12 @@ services:
       # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
       # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
       
-    image: weejewel/wg-easy
+    build: ./
     container_name: wg-easy
+    command: npm run serve
     volumes:
-      - .:/etc/wireguard
+      - ./src/:/app/
+      - ./config:/etc/wireguard
     ports:
       - "51820:51820/udp"
       - "51821:51821/tcp"
